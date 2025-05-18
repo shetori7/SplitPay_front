@@ -6,6 +6,7 @@ export async function apiFetch<T>(
   options?: RequestInit
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint}`;
+  console.log("API URL:", url); // デバッグ用
   const response = await fetch(url, {
     ...options,
     headers: {

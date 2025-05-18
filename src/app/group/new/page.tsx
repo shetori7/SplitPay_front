@@ -1,10 +1,17 @@
 'use client';
 import { useState } from "react";
+import { useRouter } from "next/navigation"; 
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import {apiFetch} from "@/lib/apiFetch";
+import { Group } from "@/domain/group"; // 追加
+
 
 export default function NewGroup() {
+    const router = useRouter();
+
     const [members, setMembers] = useState<string[]>(["あべ"]);
     const [memberInput, setMemberInput] = useState("");
+    const [groupName, setGroupName] = useState(""); 
 
     const handleAddMember = () => {
         if (memberInput.trim() !== "") {
@@ -17,6 +24,26 @@ export default function NewGroup() {
         setMembers(members.filter((_, i) => i !== index));
     };
 
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault(); // フォームのデフォルト送信を防ぐ
+        
+        apiFetch<Group>("/group/new", {
+            method: "POST",
+            body: JSON.stringify({
+                group_name: groupName, // ここに実際のグループ名を入れる
+                users: members, // メンバーの配列
+            }),
+        })
+        .then((data) => {
+            console.log(groupName)
+            console.log("グループ作成成功:", data);
+            router.push(`/group/${data.groupUuid}`); 
+        })
+        .catch((error) => {
+            console.error("グループ作成エラー:", error);
+        });
+    };
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 text-gray-700">
             {/* ヘッダー */}
@@ -26,11 +53,13 @@ export default function NewGroup() {
 
             {/* メインコンテンツ */}
             <main className="flex flex-col gap-6 items-center justify-center flex-1 p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
-                <form className="flex flex-col gap-4 w-full max-w-md">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md">
                     <label className="font-medium text-gray-600">グループ</label>
                     <input
                         type="text"
                         placeholder="グループ名"
+                        value={groupName}
+                        onChange={(e) => setGroupName(e.target.value)}
                         className="border border-gray-300 rounded p-2 bg-white text-black"
                     />
                     <div className="flex flex-col gap-2">
