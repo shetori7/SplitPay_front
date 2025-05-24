@@ -47,9 +47,9 @@ export default function NewGroup() {
         });
     };
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50 text-gray-700">
+        <div className="flex flex-col text-gray-700">
             {/* メインコンテンツ */}
-            <main className="flex flex-col gap-6 items-center justify-center flex-1 p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
+            <main className="flex flex-col gap-6 items-center justify-center p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md">
                     <label className="font-medium text-gray-600">グループ</label>
                     <input
