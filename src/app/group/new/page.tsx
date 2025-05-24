@@ -4,9 +4,6 @@ import { useRouter } from "next/navigation";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import {apiFetch} from "@/lib/apiFetch";
 import { Group } from "@/domain/group";
-import Header from "@/component/header";
-import Footer from "@/component/footer";
-
 
 export default function NewGroup() {
     const router = useRouter();
