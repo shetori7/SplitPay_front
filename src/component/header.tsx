@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 const Header = () => {
   return (
-    <header className="flex flex-col justify-center items-center">
-      <Image src="/walipay.svg" alt="Loading..." width={80} height={80} />
-    </header>
+      <header className="w-full bg-[#7999ce] text-white py-4 px-8">
+        <h1 className="text-2xl font-bold">AddPay</h1>
+      </header>
   );
 };
 

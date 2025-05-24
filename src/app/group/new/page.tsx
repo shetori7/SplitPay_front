@@ -3,7 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import {apiFetch} from "@/lib/apiFetch";
-import { Group } from "@/domain/group"; // 追加
+import { Group } from "@/domain/group";
+import Header from "@/component/header";
+import Footer from "@/component/footer";
 
 
 export default function NewGroup() {
@@ -46,11 +48,6 @@ export default function NewGroup() {
     };
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 text-gray-700">
-            {/* ヘッダー */}
-            <header className="w-full bg-[#7999ce] text-white py-4 px-8">
-                <h1 className="text-2xl font-bold">AddPay</h1>
-            </header>
-
             {/* メインコンテンツ */}
             <main className="flex flex-col gap-6 items-center justify-center flex-1 p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md">
@@ -110,10 +107,6 @@ export default function NewGroup() {
                 </form>
             </main>
 
-            {/* フッター */}
-            <footer className="w-full bg-[#7999ce] text-white py-4 px-8 text-center">
-                <p>© 2025 Miya Abe Eng. All rights reserved.</p>
-            </footer>
         </div>
     );
 }
