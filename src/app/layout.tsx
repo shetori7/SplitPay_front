@@ -5,8 +5,8 @@ import Footer from "@/component/footer";
 // import Footer from "../component/footer";
 
 export const metadata: Metadata = {
-  title: "Sogen Admin",
-  description: "AddPay",
+  title: "アドペイ",
+  description: "グループ支払い管理アプリ",
   icons: {
     icon: "/favicon.png",
   },
