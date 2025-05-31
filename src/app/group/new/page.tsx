@@ -4,16 +4,14 @@ import { useRouter } from "next/navigation";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import {apiFetch} from "@/lib/apiFetch";
 import { Group } from "@/domain/group";
-import Header from "@/component/header";
-import Footer from "@/component/footer";
-
 
 export default function NewGroup() {
     const router = useRouter();
 
-    const [members, setMembers] = useState<string[]>(["あべ"]);
+    const [members, setMembers] = useState<string[]>([]);
     const [memberInput, setMemberInput] = useState("");
     const [groupName, setGroupName] = useState(""); 
+
 
     const handleAddMember = () => {
         if (memberInput.trim() !== "") {
@@ -29,7 +27,15 @@ export default function NewGroup() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); // フォームのデフォルト送信を防ぐ
-        
+        if (groupName.trim() === "") {
+            window.alert("グループ名を入力してください");
+            return;
+        }
+        if (members.length === 0) {
+            window.alert("少なくとも1人のメンバーを追加してください");
+            return;
+        }
+
         apiFetch<Group>("/group/new", {
             method: "POST",
             body: JSON.stringify({
@@ -57,6 +63,11 @@ export default function NewGroup() {
                         placeholder="グループ名"
                         value={groupName}
                         onChange={(e) => setGroupName(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault(); // Enterキーでフォーム送信を防ぐ
+                            }
+                        }}
                         className="border border-gray-300 rounded p-2 bg-white text-black"
                     />
                     <div className="flex flex-col gap-2">
@@ -67,24 +78,30 @@ export default function NewGroup() {
                                 placeholder="メンバー"
                                 value={memberInput}
                                 onChange={(e) => setMemberInput(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        e.preventDefault(); // Enterキーでフォーム送信を防ぐ
-                                        handleAddMember();
-                                    }
-                                }}
                                 className="flex-1 border border-gray-300 rounded p-2 bg-white text-black"
+                                onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault(); // Enterキーでフォーム送信を防ぐ
+                                    handleAddMember();
+                                }
+                                }}
                             />
                             <button
                                 type="button"
                                 onClick={handleAddMember}
                                 className="bg-[#3f82f5] hover:bg-[#A0C4FF] text-gray-50 rounded px-4"
+                                onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault(); // Enterキーでフォーム送信を防ぐ
+                                    handleAddMember();
+                                }
+                                }}
                             >
                                 追加
                             </button>
                         </div>
                     </div>
-                    <ul className="list-disc list-inside bg-gray-100 p-4 rounded border border-gray-300">
+                    {members.length > 0 &&(<ul className="list-disc list-inside bg-gray-100 p-4 rounded border border-gray-300">
                         {members.map((member, index) => (
                             <li key={index} className="flex justify-between items-center">
                                 {member}
@@ -97,7 +114,7 @@ export default function NewGroup() {
                                 </button>
                             </li>
                         ))}
-                    </ul>
+                    </ul>)}
                     <button
                         type="submit"
                         className="bg-[#3f82f5] hover:bg-[#A0C4FF] text-gray-50 rounded p-2"
