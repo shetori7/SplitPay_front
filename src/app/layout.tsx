@@ -6,10 +6,11 @@ import Footer from "@/component/footer";
 
 export const metadata: Metadata = {
   title: "Sogen Admin",
-  description: "Sogen Admin Application",
+  description: "AddPay",
   icons: {
     icon: "/favicon.png",
-  }
+  },
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
