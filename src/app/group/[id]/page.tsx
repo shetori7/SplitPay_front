@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { PencilSquareIcon, BanknotesIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 type Payment = {
   payer: string;
@@ -55,7 +55,6 @@ const Page = () => {
   const mainBorder = "border-indigo-200";
   const mainTitle = "text-gray-700";
   const mainSubTitle = "text-gray-700";
-  const mainTableHead = "bg-indigo-100 text-gray-700";
 
   return (
     <div className="max-w-2xl mx-auto p-8 space-y-8 text-gray-700">
