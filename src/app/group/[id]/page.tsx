@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { Group } from '@/domain/group';
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import  { apiFetch } from "@/lib/apiFetch";
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const { id } = useParams();
+  const router = useRouter();
   const [groupName, setGroupName] = useState<string>("");
   const [userNameList, setuserNameList] = useState<string[]>([]);
 
@@ -64,6 +66,19 @@ const Page = () => {
             </li>
           ))}
         </ul>
+        {/* 立替記録のボタンを追加 */}
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            className="flex items-center gap-2 px-5 py-2 bg-indigo-500 text-white font-semibold rounded-full shadow hover:bg-indigo-600 transition"
+            onClick={() => {router.push(`/group/${id}/payment/new`);}}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            立替記録を追加
+          </button>
+        </div>
       </div>
     </div>
   );
