@@ -1,35 +1,16 @@
 "use client"
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { Group } from '@/domain/group';
+import React from 'react';
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
-import  { apiFetch } from "@/lib/apiFetch";
 import { useRouter } from 'next/navigation';
+import { useGroupInfo } from '@/hooks/useGroupInfo';
 
 const Page = () => {
   const { id } = useParams();
   const router = useRouter();
-  const [groupName, setGroupName] = useState<string>("");
-  const [userNameList, setuserNameList] = useState<string[]>([]);
+  const { groupName, userNameList, loading } = useGroupInfo(id);
 
-  useEffect(() => {
-    if (typeof id === "string") {
-      localStorage.setItem("groupId", id);
-    }
-
-    // グループ情報を取得
-    apiFetch<Group>(`/group/getInfo?groupUuId=${id}`, {
-      method: "GET"
-    })
-      .then(data => {
-        setGroupName(data.group_name);
-        setuserNameList(data.Users.map(user => user.user_name));
-      })
-      .catch(error => console.error("Error fetching group data:", error));
-    
-  }, [id]);
-
-  if (!groupName || userNameList.length === 0) {
+  if (loading) {
     return <div className="p-8 text-gray-700">読み込み中...</div>;
   }
 
