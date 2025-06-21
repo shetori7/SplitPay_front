@@ -5,12 +5,16 @@ import Footer from "@/component/footer";
 // import Footer from "../component/footer";
 
 export const metadata: Metadata = {
-  title: "アドペイ",
+  title: "AddPay",
   description: "グループ支払い管理アプリ",
   icons: {
     icon: "/favicon.png",
-  },
-  viewport: "width=device-width, initial-scale=1",
+  }
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

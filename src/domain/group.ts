@@ -1,13 +1,12 @@
 
-export type GroupUser ={
+export interface GroupUser {
     user_id: number;
     user_name: string;
-    group_id: number;
-};
+    group_uuid: string;
+}
 
-export type Group = {
-    groupId: number;
-    groupName: string;
-    groupUuid: string;
-    users: GroupUser[];
-};
+export interface Group {
+    group_name: string;
+    group_uuid: string;
+    Users: GroupUser[];
+}

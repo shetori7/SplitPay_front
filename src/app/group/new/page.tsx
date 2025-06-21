@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import {apiFetch} from "@/lib/apiFetch";
+import { apiFetch } from "@/lib/apiFetch";
 import { Group } from "@/domain/group";
 
 export default function NewGroup() {
@@ -46,7 +46,7 @@ export default function NewGroup() {
         .then((data) => {
             console.log(groupName)
             console.log("グループ作成成功:", data);
-            router.push(`/group/${data.groupUuid}`); 
+            router.push(`/group/${data.group_uuid}`); // グループ作成後にリダイレクト
         })
         .catch((error) => {
             console.error("グループ作成エラー:", error);
