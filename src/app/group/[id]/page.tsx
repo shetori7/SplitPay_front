@@ -8,7 +8,7 @@ import { useGroupInfo } from '@/hooks/useGroupInfo';
 const Page = () => {
   const { id } = useParams();
   const router = useRouter();
-  const { groupName, userNameList, loading } = useGroupInfo(id);
+  const { groupName, userNameList, payments, loading } = useGroupInfo(id);
 
   if (loading) {
     return <div className="p-8 text-gray-700">読み込み中...</div>;
@@ -47,6 +47,24 @@ const Page = () => {
             </li>
           ))}
         </ul>
+        
+        <div className="mt-6">
+          {payments.length === 0 ? (
+            <div className="text-gray-500">まだ立替記録がありません。</div>
+          ) : (
+            <ul className="space-y-2">
+              {payments.map((p) => (
+                <li key={p.final_payment_id} className="flex flex-col md:flex-row md:items-center justify-between bg-white border border-indigo-200 rounded-lg px-4 py-2 shadow">
+                  <div className="flex-1">
+                    <span className="font-bold">{p.from_user_name} → {p.to_user_name}</span>
+                    <span className="ml-2 text-gray-500">支払い: </span>
+                    <span className="text-indigo-700 font-bold">¥{p.amount.toLocaleString()}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
         {/* 立替記録のボタンを追加 */}
         <div className="mt-6 flex justify-end">
           <button
